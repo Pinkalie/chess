@@ -34,7 +34,11 @@ MyUnselectedState >> clickOn: aMyChessSquare [
 	Select the chess square"
 	aMyChessSquare select.
 	aMyChessSquare contents ifNotNil: [
-		board highLightTargets: aMyChessSquare contents targetSquares ].
+		aMyChessSquare contents color = board game currentPlayer color
+            ifTrue: [
+                board highLightTargets: aMyChessSquare contents targetSquares.
 
-	^ MySelectedState board: board selected: aMyChessSquare
+	^ MySelectedState board: board selected: aMyChessSquare ] ].
+    ^ self 
+
 ]

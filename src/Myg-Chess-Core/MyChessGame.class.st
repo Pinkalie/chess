@@ -56,6 +56,11 @@ MyChessGame >> checkForMate [
 	blackPlayer king isCheckMated ifTrue: [ self halt: 'White wins!' ].
 ]
 
+{ #category : 'accessing' }
+MyChessGame >> currentPlayer [
+    ^ currentPlayer
+]
+
 { #category : 'initialization' }
 MyChessGame >> initialize [
 
@@ -130,6 +135,16 @@ MyChessGame >> move: piece to: square [
 	self recordMovementOf: piece to: square
 ]
 
+{ #category : 'as yet unclassified' }
+MyChessGame >> nextPlayer [
+
+    currentPlayer = whitePlayer
+        ifTrue: [ currentPlayer := blackPlayer ]
+        ifFalse: [
+            moveCount := moveCount + 1.
+            currentPlayer := whitePlayer ]
+]
+
 { #category : 'accessing' }
 MyChessGame >> pieces [
 
@@ -139,13 +154,13 @@ MyChessGame >> pieces [
 { #category : 'playing' }
 MyChessGame >> play [
 
-	currentPlayer play.
-	currentPlayer = whitePlayer
-		ifTrue: [ currentPlayer := blackPlayer ]
-		ifFalse: [ 
-			moveCount := moveCount + 1.
-			currentPlayer := whitePlayer ].
-	self checkForMate
+    currentPlayer play.
+    currentPlayer = whitePlayer
+        ifTrue: [ currentPlayer := blackPlayer ]
+        ifFalse: [
+            moveCount := moveCount + 1.
+            currentPlayer := whitePlayer ].
+    self checkForMate
 ]
 
 { #category : 'moves' }
